@@ -1,0 +1,44 @@
+{% extends 'base_admin.html'%}
+
+{%block project%}
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Projects</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <a class="navbar-brand" href="{%url 'add_project'%}"><button class="btn btn-xs btn-outline-facebook"> Add New Project</button></a>                
+            </div>
+        </div>
+        <table class="table">
+            <thead class="thead-primary">
+                <tr>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for i in data%}
+                <tr>
+                    <td>{{i.project_name}}</td>
+                    <td>{{i.location}}</td>
+                    <td>
+                        <div class="mg-l-auto d-flex align-self-center">
+                            <nav class="nav nav-icon-only">
+                                <a href="{%url 'update_project' i.id%}"><button  class="btn btn-primary">Edit</button></a>&nbsp;&nbsp;
+                                <a href="{%url 'remove_project' i.id%}" onclick="return confirm('Are you Sure, You want to delete record !')"><button  class="btn btn-danger">Delete</button></a>
+                            </nav>
+                        </div>
+                    </td>
+                </tr>
+                {%endfor%}
+
+            </tbody>
+        </table>
+    </div><!-- container -->
+</div><!-- content -->
+
+
+{% endblock %}

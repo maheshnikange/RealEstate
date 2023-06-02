@@ -1,0 +1,76 @@
+{% extends 'base_admin.html'%}
+{% block my_investment %}
+
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">My Investment</h4>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="thead-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Project Name</th>
+                        <th>Amount Invested</th>
+                        <th>Date Invested</th>
+                        <th>Total Amount Received</th>
+                        <th>ROI</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>Coonoor Valley</td>
+                        <td>75000</td>
+                        <td>May 24, 2023</td>
+                        <td>00</td>
+                        <td>15%</td>
+                        <td class="text-info">Pending</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Test Project 1</td>
+                        <td>25000</td>
+                        <td>May 25, 2023</td>
+                        <td>25000</td>
+                        <td>22%</td>
+                        <td class="text-success">Success</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Test Project 2</td>
+                        <td>30000</td>
+                        <td>May 28, 2023</td>
+                        <td>00</td>
+                        <td>40%</td>
+                        <td class="text-info">Pending</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>Test Project 3</td>
+                        <td>15000</td>
+                        <td>May 29, 2023</td>
+                        <td>00</td>
+                        <td>25%</td>
+                        <td class="text-info">Pending</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Test Project 4</td>
+                        <td>75000</td>
+                        <td>May 31, 2023</td>
+                        <td>00</td>
+                        <td>30%</td>
+                        <td class="text-info">Pending</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div><!-- container -->
+</div><!-- content -->
+
+{%endblock%}

@@ -1,0 +1,38 @@
+{% extends 'base_admin.html'%}
+{%block user_details%}
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Users</h4>
+            </div>
+            <div class="d-none d-md-block">
+                <a href="{%url 'admin_signup'%}"><button class="btn btn-xs btn-outline-facebook"> Add New User</button></a>
+            </div>
+        </div>
+        <table class="table">
+            <thead class="thead-primary">
+                <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in users%}
+
+                <tr>
+                    <td>{{i.username}}</td>
+                    <td>
+                        <button type="button" class="btn btn-xs btn-outline-primary mr-2">Approve</button>
+                        <a href="#"><button  class="btn btn-xs btn-outline-facebook">Update</button></a>
+                        <a href="{%url 'delete_user' i.id%}"  onclick="return confirm('Are you Sure, You want to delete record !')"><button  class="btn btn-xs btn-outline-facebook">Disable</button></a>
+                    </td>
+                </tr>
+                {%endfor%}
+
+            </tbody>
+        </table>
+    </div><!-- container -->
+</div><!-- content -->
+
+{%endblock%}

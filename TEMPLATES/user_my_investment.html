@@ -1,0 +1,47 @@
+{% extends 'base_user.html'%}
+{% block user_my_investment %}
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">My Investment</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Amount Invested</th>
+                                <th>Date Invested</th>
+                                <th>Total Amount Received</th>
+                                <th>ROI</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {%for i in data1%}
+                            <tr>
+                                <td>{{i.project_name}}</td>
+                                <td>{{i.amount_invested}}</td>
+                                <td>{{i.date_of_invested}}</td>
+                                <td><a href="{% url 'user_my_investment_detail' i.id%}">{{i.amount_received}}</a></td>
+                                <td>--------</td>
+                                <td class="text-info">-------------</td>
+                            </tr>
+                        {%endfor%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                {% block user_my_investment_detail%}
+                {%endblock%}
+            </div>
+        </div>
+    </div><!-- container -->
+</div><!-- content -->
+
+{%endblock%}

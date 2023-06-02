@@ -1,0 +1,55 @@
+{% extends 'base_user.html'%}
+{% block user_profile %}
+
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="pd-30 bg-gray-100">
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <div class="contact-content-sidebar">
+                            <div class="clearfix mg-b-25">
+                                <div id="contactAvatar" class="pos-relative float-start">
+                                    <div class="avatar avatar-xl"><img src="{{profile.image.url}}" alt="" class="rounded-circle"></div>
+                                </div>
+                            </div>
+                            <h5 id="contactName" class="tx-18 tx-xl-20 mg-b-5">{{form.username}}</h5>
+                            <p class="tx-13 tx-lg-12 tx-xl-13 tx-color-03 mg-b-20">President &amp; CEO </p>
+                            <nav class="contact-call-nav mg-b-20">
+                                <a href="#" class="nav-call" data-bs-toggle="tooltip" title="Make a Phone Call"><i data-feather="phone"></i></a>
+                                <a href="#" class="nav-msg" data-bs-toggle="tooltip" title="Send Message"><i data-feather="message-square"></i></a>
+                            </nav><!-- contact-call-nav -->
+                        </div><!-- contact-content-sidebar -->
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Enter your email-id" value="{{form.email}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your Phone number" value="{{profile.phone_no}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your Address Line 1" value="{{profile.address_line1}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your Address Line 2" value="{{profile.address_line1}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your Pincode" value="{{profile.pincode}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your City" value="{{profile.city}}" disabled="disabled">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter your Country" value="{{profile.country}}" disabled="disabled">
+                        </div>
+                        <a href="{%url 'edit_user_profile'%}" class="btn btn-primary btn-block">Edit</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!-- container -->
+</div><!-- content -->
+{%endblock%}

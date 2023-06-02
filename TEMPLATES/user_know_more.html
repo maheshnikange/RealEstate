@@ -1,0 +1,33 @@
+{% extends 'base_user.html'%}
+{% block user_know_more %}
+
+<div class="content content-fixed">
+  <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+      <div class="text-center mg-b-20 mg-lg-b-25 mg-xl-b-20">
+          <div>
+              <h4 class="mg-b-0 tx-spacing--1">Project Details</h4>
+          </div>
+      </div>
+      <div class="row row-xs">
+          <div class="col-md-6 col-xl-6 mg-t-10">
+              <h4 class="mb-3 tx-spacing--1">{{data.project_name}}</h4>
+              <p><a href="{{data.location_link}}" target="_blank">{{data.location_link}} </a></p>
+
+              <p>
+                <p>{{data.detail_desc}}</p>
+              </p>
+           </div>
+          <div class="col-md-6 col-xl-6 mg-t-10">
+              <div class="row row-xs">
+                {%for i in Image_list%}
+                  <div class="col-sm-4"><img src="/media/Project_img/{{i}}" class="img-thumbnail zoom-in img-fit-cover rounded float-left" alt=""></div>
+                {%endfor%}
+              </div>
+          </div>          
+      </div><!-- row -->
+  </div><!-- container -->
+</div><!-- content -->
+
+
+
+{%endblock%}

@@ -1,0 +1,61 @@
+{% extends 'base_admin.html'%}
+{% block payment_received %}
+
+<div class="content content-fixed content-auth">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Amount Received from Investors</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr>
+                                <th>Project Name</th>
+                                <th>User Name</th>
+                                <th>Date</th>
+                                <th>Amount Received</th>
+                                <th>Confirmed Amount</th>
+                                <th>Confirmed Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for i in data%}
+                            <tr>
+                                <td>{{i.project_name}}</td>
+                                <td>{{i.username}}</td>
+                                <td>{{i.amount_invested}}</td>
+                                <td>{{i.date_of_invested}}</td>
+                                <td>{{i.amount_received}}</td>
+                                <td>{{i.date_of_received}}</td>
+                                <td><a href="{%url 'payment_received_update' i.id%}" class="btn btn-xs btn-outline-facebook mg-l-5">Confirm Payment</a></td>
+                            </tr>
+                            {%endfor%}
+        
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="col-lg-3">
+                {% block update%}
+                <h4>Confirm Payment</h4>
+                <form action="" method="POST">
+                    {%csrf_token%}
+                    Confirm Amount <input type="text" name="amt"><br><br>
+                    Confirm Date <input type="text" name="date"><br><br>    
+                    <input type="submit" value="Update">
+                </form>
+                {%endblock%}
+
+            </div>
+        </div>
+
+    </div><!-- container -->
+</div><!-- content -->
+
+{%endblock%}

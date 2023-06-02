@@ -1,0 +1,66 @@
+{% extends 'base_admin.html'%}
+{% block project_list %}
+<div class="content content-fixed">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="text-center mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Platform for curated investment opportunities</h4>
+            </div>
+        </div>
+        <div class="row row-xs">
+            {%for i in data%}
+            <div class="col-md-6 col-xl-4 mg-t-10">
+                <div class="card ht-100p">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{i.project_name }}</h6>
+                            <span>{{i.location}}</span>
+                        </div>
+                        <span class="tx-color-03 tx-12">Invest in land over looking the Nilgiris valley</span>
+                    </div>
+                    <div class="card-body pd-b-0">
+                        <div class="row mg-b-20">
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">
+                                    {{i.Projected_ROI}}
+                                </h5>
+                                <p class="tx-11 tx-medium">Expected Returns</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">{{i.expected_duration}}</h5>
+                                <p class="tx-11 tx-medium">Expected Duration</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">{{i.start_date}}</h5>
+                                <p class="tx-11 tx-medium">Expected start date</p>
+                            </div>
+                        </div><!-- row -->
+                        <div class="row mg-b-20">
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">
+                                    Rs.{{i.min_investment}}
+                                </h5>
+                                <p class="tx-11 tx-medium">Minimum Investment</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">Rs. {{i.total_investment}}</h5>
+                                <p class="tx-11 tx-medium">Total Investment</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">Rs. {{i.Investment_till_date}}</h5>
+                                <p class="tx-11 tx-medium">Investment Received</p>
+                            </div>
+                        </div><!-- row -->
+                        <div class="card-footer text-center tx-13">
+                            <a href="#" class="btn btn-xs btn-outline-facebook mg-l-5">Invest Now</a>
+                            <a href="{% url 'know_more' i.id%}" class="btn btn-xs btn-outline-facebook mg-l-5">Know More</a>
+                        </div><!-- card-footer -->
+                    </div>
+                </div><!-- card -->
+
+            </div>
+            {%endfor%}
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- content -->
+{%endblock%}

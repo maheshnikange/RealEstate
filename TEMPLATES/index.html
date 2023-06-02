@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta -->
+    <meta name="description" content="Template">
+    <!-- Favicon -->
+    <title>Template</title>
+    <!-- vendor css -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body class="page-profile">
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="#" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a>
+        <div class="navbar-brand">
+            <a href="#" class="df-logo">Living<span>Estates</span></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="#" class="df-logo">Company<span>name</span></a>
+                <a id="mainMenuClose" href="#"><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
+                <li class="nav-item active">
+                    <a href="{% url 'index'%}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'about_us'%}" class="nav-link">About Us</a>
+                </li>
+                {% block admin_homepage%}
+                {% endblock %}
+                {% block user_homepage%}
+                {% endblock %}
+
+            </ul>
+        </div><!-- navbar-menu-wrapper -->
+        <div class="navbar-right">
+            <div class="d-flex mg-t-20 mg-sm-t-0">
+                <div class="btn-group flex-fill">
+                    <a href="{%url 'user_login' %}" class="btn btn-xs pd-x-15 btn-brand-02 btn-uppercase mg-l-5">Login</a>
+                </div>
+            </div>
+            {%block profile_icon%}
+            {%endblock%}
+
+        </div><!-- navbar-right -->
+    </header><!-- navbar -->
+{% block login %}
+{%endblock%}
+{% block signup %}
+{%endblock%}
+
+{%block project_cards%}
+{% endblock %}
+
+{%block about_us%}
+{% endblock %}
+
+
+<div class="content content-fixed">
+    <div class="container pd-x-0 pd-lg-x-10 pd-xl-x-0">
+        <div class="text-center mg-b-20 mg-lg-b-25 mg-xl-b-20">
+            <div>
+                <h4 class="mg-b-0 tx-spacing--1">Platform for curated investment opportunities</h4>
+            </div>
+        </div>
+        <div class="row row-xs">
+            {%for i in data%}
+            <div class="col-md-6 col-xl-4 mg-t-10">
+                <div class="card ht-100p">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="mg-b-0">{{i.project_name }}</h6>
+                            <span>{{i.location}}</span>
+                        </div>
+                        <span class="tx-color-03 tx-12">Invest in land over looking the Nilgiris valley</span>
+                    </div>
+                    <div class="card-body pd-b-0">
+                        <div class="row mg-b-20">
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">
+                                    {{i.Projected_ROI}}
+                                </h5>
+                                <p class="tx-11 tx-medium">Expected Returns</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">{{i.expected_duration}}</h5>
+                                <p class="tx-11 tx-medium">Expected Duration</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">{{i.start_date}}</h5>
+                                <p class="tx-11 tx-medium">Expected start date</p>
+                            </div>
+                        </div><!-- row -->
+                        <div class="row mg-b-20">
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">
+                                    Rs.{{i.min_investment}}
+                                </h5>
+                                <p class="tx-11 tx-medium">Minimum Investment</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">Rs. {{i.total_investment}}</h5>
+                                <p class="tx-11 tx-medium">Total Investment</p>
+                            </div>
+                            <div class="col">
+                                <h5 class="tx-normal tx-info tx-spacing--1 mg-b-10">Rs. {{i.Investment_till_date}}</h5>
+                                <p class="tx-11 tx-medium">Investment Received</p>
+                            </div>
+                        </div><!-- row -->
+                        <div class="card-footer text-center tx-13">
+                            <a href="{%url 'user_login'%}" class="btn btn-xs btn-outline-facebook mg-l-5">Invest Now</a>
+                            <a href="{%url 'user_login'%}" class="btn btn-xs btn-outline-facebook mg-l-5">Know More</a>
+                        </div><!-- card-footer -->
+                    </div>
+                </div><!-- card -->
+
+            </div>
+            {%endfor%}
+        </div><!-- row -->
+    </div><!-- container -->
+</div><!-- content -->
+
+
+
+    <footer class="footer">
+        <div>
+            <span>&copy; 2023 </span>
+            <span>Created by <a href="#">Maitri Joshi</a></span>
+        </div>
+        <div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
