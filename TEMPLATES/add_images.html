@@ -1,0 +1,14 @@
+{%extends 'base_admin.html'%}
+{%block add_images%}
+<br><br><br>
+<form action="{% url 'add_images' %}" method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    <div class="form-group" style="align-items: center;justify-content: center;">
+        <input type="file" name="image" multiple>
+        <input type="submit" value="Add Images" class="btn btn-primary">
+    </div>
+</form>                
+
+
+
+{%endblock%}

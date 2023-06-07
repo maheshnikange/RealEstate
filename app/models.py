@@ -1,8 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
 
+from django.db import models
+from django.contrib.auth.models import User,AbstractUser
+from django.conf import settings
 
 # Create your models here.
+
+
 land_p=[('Not Started','Not Started'),('In Progress','In Progress'),('Completed','Completed')]
 dev=[('Not Started','Not Started'),('In Progress','In Progress'),('Completed','Completed')]
 sales=[('Not Started','Not Started'),('In Progress','In Progress'),('Completed','Completed')]
@@ -63,6 +66,7 @@ class Profile(models.Model):
     city=models.CharField(max_length=30)
     country=models.CharField(max_length=30)
     image=models.ImageField(upload_to='profile',null=True,default='default.jpg')
-
-    def __str__(self):
-        return f'{self.user.username} Profile '
+    activate_flag=models.CharField(max_length=10,default='0')
+    # def __str__(self):
+    #     return self.user.username 
+        # return f'{self.user.username} Profile '

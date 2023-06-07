@@ -99,7 +99,7 @@ $(function(){
   }
 
 
-  $('#mainMenuOpen').on('click touchstart', function(e){
+  $('#mainMenuOpen').on('click', function(e){
     e.preventDefault();
     $('body').addClass('navbar-nav-show');
   })
@@ -128,4 +128,3 @@ $(function(){
   });
 
 })
-

@@ -23,9 +23,11 @@
                 <tr>
                     <td>{{i.username}}</td>
                     <td>
-                        <button type="button" class="btn btn-xs btn-outline-primary mr-2">Approve</button>
-                        <a href="#"><button  class="btn btn-xs btn-outline-facebook">Update</button></a>
-                        <a href="{%url 'delete_user' i.id%}"  onclick="return confirm('Are you Sure, You want to delete record !')"><button  class="btn btn-xs btn-outline-facebook">Disable</button></a>
+                        <!-- <form action="" method="POST"> -->
+                            <a href="{% url 'enable_user' i.id %}" class="btn btn-xs btn-outline-primary mr-2">Approve</a>
+                            <a href="#"><button  class="btn btn-xs btn-outline-facebook">Update</button></a>
+                            <a href="{%url 'disable_user' i.id%}"  class="btn btn-xs btn-outline-primary mr-2">Disable</a>    
+                        <!-- </form> -->
                     </td>
                 </tr>
                 {%endfor%}

@@ -27,7 +27,14 @@
                                 <td>{{i.project_name}}</td>
                                 <td>{{i.amount_invested}}</td>
                                 <td>{{i.date_of_invested}}</td>
-                                <td><a href="{% url 'user_my_investment_detail' i.id%}">{{i.amount_received}}</a></td>
+                                <td>
+                                    <form action="{% url 'user_my_investment_detail' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="project_name1" value="{{i.project_name}}" readonly> 
+                                        <input type="submit" value="{{i.amount_received}}">
+                                    </form>
+                                
+                                
                                 <td>--------</td>
                                 <td class="text-info">-------------</td>
                             </tr>

@@ -8,6 +8,13 @@ urlpatterns = [
     path('user_logout/', views.user_logout,name='user_logout'),
     path('signup/', views.signup,name='signup'),
     path('about_us/', views.about_us, name='about_us'),
+    path('change_password1/', views.change_password1, name='change_password1'),
+    path('change_password2/<str:username>', views.change_password2, name='change_password2'),
+    path('admin_update_password/', views.admin_update_password, name='admin_update_password'),
+    path('user_update_password/', views.user_update_password, name='user_update_password'),
+
+    
+
 
 # -----------------------------admin tabs-------------------------------
     path('admin_homepage', views.admin_homepage,name='admin_homepage'),
@@ -24,9 +31,18 @@ urlpatterns = [
     path('add_payment/', views.add_payment, name='add_payment'),
     path('my_investment/', views.my_investment, name='my_investment'),
     path('user_my_investment/', views.user_my_investment, name='user_my_investment'),
-    path('user_my_investment_detail/<int:id>', views.user_my_investment_detail, name='user_my_investment_detail'),
+    # path('user_my_investment_detail/<int:id>', views.user_my_investment_detail, name='user_my_investment_detail'),
+    path('user_my_investment_detail/', views.user_my_investment_detail, name='user_my_investment_detail'),
     path('delete_user/<int:id>', views.delete_user, name='delete_user'),
     path('admin_signup/', views.admin_signup,name='admin_signup'),
+    path('admin_profile/', views.admin_profile, name='admin_profile'),
+    path('edit_admin_profile/', views.edit_admin_profile, name='edit_admin_profile'),
+    path('enable_user/<int:id>', views.enable_user, name='enable_user'),
+    path('disable_user/<int:id>', views.disable_user, name='disable_user'),
+    path('edit_project_images/<str:data>', views.edit_project_images, name='edit_project_images'),
+    path('delete_image/<str:id>', views.delete_image, name='delete_image'),
+    path('add_images/', views.add_images, name='add_images'),
+
 
 
 
