@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from app import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index,name='index'),
@@ -13,6 +14,11 @@ urlpatterns = [
     path('admin_update_password/', views.admin_update_password, name='admin_update_password'),
     path('user_update_password/', views.user_update_password, name='user_update_password'),
 
+# --------------------forget password------------------------------------------------------------
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name ='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name ='password_reset_done'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name ='password_reset_complete'),
     
 
 
@@ -42,6 +48,11 @@ urlpatterns = [
     path('edit_project_images/<str:data>', views.edit_project_images, name='edit_project_images'),
     path('delete_image/<str:id>', views.delete_image, name='delete_image'),
     path('add_images/', views.add_images, name='add_images'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+
+    path('dashboard_investment/', views.dashboard_investment, name='dashboard_investment'),
+    path('dashboard_income/', views.dashboard_income, name='dashboard_income'),
+    path('edit_user_profile_by_admin/<str:id>', views.edit_user_profile_by_admin, name='edit_user_profile_by_admin'),
 
 
 
@@ -58,6 +69,7 @@ urlpatterns = [
     path('user_profile/', views.user_profile, name='user_profile'),
     path('edit_user_profile/', views.edit_user_profile, name='edit_user_profile'),
 
+    path('demo/', views.demo, name='demo'),
 
     
 

@@ -5,17 +5,17 @@ from django.forms import ModelForm
 
 class SignUpForm(UserCreationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"}))
+        widget=forms.TextInput(attrs={"class": "form-control",'placeholder': 'Enter Username'}),required=True)
     first_name = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"}))
+        widget=forms.TextInput(attrs={"class": "form-control",'placeholder': 'Enter First Name'}),required=True)
     lastname = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"}))
+        widget=forms.TextInput(attrs={"class": "form-control",'placeholder': 'Enter Last Name'}),required=True)
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"class": "form-control"}))
+        widget=forms.PasswordInput(attrs={"class": "form-control",'placeholder': 'Enter Password'}),required=True)
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs={"class": "form-control"}))
+        widget=forms.PasswordInput(attrs={"class": "form-control",'placeholder': 'Re-Enter Password'}),required=True)
     email = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"}))
+        widget=forms.TextInput(attrs={"class": "form-control",'placeholder': 'Enter Email Id'}),required=True)
 
 c1=(('Not Started','Not Started'),('In Progress','In Progress'),('Completed','Completed'))
 class add_project_form(forms.ModelForm):

@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-10">
                 <div class="table-responsive">
                     <table class="table">
                         <thead class="thead-primary">
@@ -41,9 +41,10 @@
                 </div>
 
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 {% block update%}
-                <h4>Confirm Payment</h4>
+                
+                <H4 >Confirm Payment</H4>
                 <form action="" method="POST">
                     {%csrf_token%}
                     Confirm Amount <input type="text" name="amt"><br><br>

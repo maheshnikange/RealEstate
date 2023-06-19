@@ -1,63 +1,140 @@
-{% extends 'base_user.html'%}
-{% block user_invest %}
-<div class="content content-fixed content-auth-alt">
-  <div class="container">
-      <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
-          <div>
-              <h4 class="mg-b-0 tx-spacing--1">Invest</h4>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-lg-6">
-              <form method="POST" action="">
-                {%csrf_token%}
-                  <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">Project name</label>
-                      <div class="col-sm-9">
-                          <input type="text" name='project' class="form-control" id="Project" value="{{project}}">
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">Enter Amount</label>
-                      <div class="col-sm-9">
-                          <input type="text" name="amount" class="form-control" id="Amount">
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-3 col-form-label">Date</label>
-                      <div class="col-sm-9">
-                          <input type="date" class="form-control" id="date-time" >
-                      </div>
-                  </div>
-                  <div class="form-group row">
-                      <label for="inputEmail3" class="col-sm-3 col-form-label">Payment Details</label>
-                      <div class="col-sm-9">
-                          <input type="text" name="t1" class="form-control" id="Payment">
-                      </div>
-                  </div>
-                  <div class="form-group row mg-b-0">
-                      <div class="col-sm-9">
-                        <input type="submit" value="Invest"  class="btn btn-primary">
-                      </div>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div><!-- container -->
-</div><!-- content -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta -->
+    <meta name="description" content="Template">
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
 
 
+</head>
+<body class="page-profile">
+    <header class="navbar navbar-header navbar-header-fixed">
+        <a href="javascript:void(0);" id="mainMenuOpen" class="burger-menu"><i data-feather="menu"></i></a> 
+        <div class="navbar-brand">
+            <a href="#" class="df-logo">Living<span>Estates</span></a>
+        </div><!-- navbar-brand -->
+        <div id="navbarMenu" class="navbar-menu-wrapper">
+            <div class="navbar-menu-header">
+                <a href="#" class="df-logo">Company<span>name</span></a>
+                <a id="mainMenuClose" href="#"><i data-feather="x"></i></a>
+            </div><!-- navbar-menu-header -->
+            <ul class="nav navbar-menu">
+                <li class="nav-label pd-l-20 pd-lg-l-25 d-lg-none">Main Navigation</li>
+                <li class="nav-item">
+                    <a href="{%url 'user_homepage'%}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{%url 'user_about_us'%}" class="nav-link">About Us</a>
+                </li>
+            </ul>
+        <div class="navbar-right">
+            <div class="dropdown dropdown-profile">
+                <a href="#" role="button" class="dropdown-link" data-bs-toggle="dropdown" data-bs-display="static">
+                    <div class="avatar avatar-sm"><img src="{{profile.image.url}}" class="rounded-circle" alt=""></div>
+                </a><!-- dropdown-link -->
+                <div class="dropdown-menu dropdown-menu-end tx-13">
+                    <div class="avatar avatar-lg mg-b-15"><img src="{{profile.image.url}}" class="rounded-circle" alt=""></div>
+                    <h6 class="tx-semibold mg-b-5">{{data1.username}}</h6>
+                    <p class="mg-b-25 tx-12 tx-color-03">Administrator</p>
+                    <a href="{%url 'user_profile'%}" class="dropdown-item"><i data-feather="user"></i> View Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{% url 'user_update_password' %}" class="dropdown-item"><i data-feather="settings"></i>Change password</a>
+
+                    <a href="{%url 'user_my_investment'%}" class="dropdown-item"><i data-feather="settings"></i>My Investment</a>
+                    <a href="{% url 'user_logout' %}" class="dropdown-item"><i data-feather="log-out"></i>Sign Out</a>
+                </div><!-- dropdown-menu -->
+            </div><!-- dropdown -->
+        </div><!-- navbar-right -->
+    
+    </header><!-- navbar -->    
+    <div class="content content-fixed content-auth-alt">
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-20">
+                <div>
+                    <h4 class="mg-b-0 tx-spacing--1">Invest</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form method="POST" action="">
+                      {%csrf_token%}
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Project name</label>
+                            <div class="col-sm-9">
+                                <input type="text" name='project' class="form-control" id="Project" value="{{project}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Enter Amount</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="amount" class="form-control" id="Amount">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPassword3" class="col-sm-3 col-form-label">Date</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="datepicker" >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Payment Details</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="t1" class="form-control" id="Payment">
+                            </div>
+                        </div>
+                        <div class="form-group row mg-b-0">
+                            <div class="col-sm-9">
+                              <input type="submit" value="Invest"  class="btn btn-primary">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- container -->
+    </div><!-- content -->
+    <footer class="footer">
+        <div>
+            <span>&copy; 2023 </span>
+            <span>Created by <a href="#">Maitri Joshi</a></span>
+        </div>
+        <div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Contact Us</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script  type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashboard-one.js' %}"></script>
+    <script  type="text/javascript" src="{% static 'js/dashforge.contacts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dashforge.js' %}"></script>
+    <script src="{%static 'js/feather.min.js'%}"></script>
+    <script src="{%static 'js/ionicons.esm.js' %}" type="module"></script>
     <script>
-        let objectDate = new Date();
+            $('#mainMenuOpen').on('click', function(e){
+            e.preventDefault();
+            $('body').addClass('navbar-nav-show');})
+    </script>
 
-        let day = objectDate.getDate();
-        let month = objectDate.getMonth();
-        let year = objectDate.getFullYear();
-        let format = day + "-" + month + "-" + year;
+<!-- ----------------date picker--------------------------------------------------------- -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#datepicker" ).datepicker({minDate: 0});});
+</script>
 
-        document.getElementById('date-time').innerHTML=format;
-        document.getElementById('date-time').setAttribute("placeholder", format);
-      </script>  
-
-{%endblock%}
+<!-- ----------------------------------------------------------------------------------------------- -->
+</body>
+</html>

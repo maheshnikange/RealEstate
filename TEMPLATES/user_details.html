@@ -18,22 +18,47 @@
                 </tr>
             </thead>
             <tbody>
-                {% for i in users%}
+                {% for i in all_profile_info%}
 
                 <tr>
-                    <td>{{i.username}}</td>
+                    <td>{{i.user}}</td>
                     <td>
-                        <!-- <form action="" method="POST"> -->
-                            <a href="{% url 'enable_user' i.id %}" class="btn btn-xs btn-outline-primary mr-2">Approve</a>
-                            <a href="#"><button  class="btn btn-xs btn-outline-facebook">Update</button></a>
-                            <a href="{%url 'disable_user' i.id%}"  class="btn btn-xs btn-outline-primary mr-2">Disable</a>    
-                        <!-- </form> -->
+                            <a href="{% url 'enable_user' i.id %}" class=" btn btn-xs btn-outline-primary mr-2">
+                                {% if i.activate_flag == '1'%}
+                                    <b >Approved</b>
+                                {%else%}
+                                    <b style="color:red">Approve</b>
+                                {%endif%}
+                            </a>
+                            <a href="{% url 'edit_user_profile_by_admin' i.id%}"><button  class="btn btn-xs btn-outline-facebook"><b>Update</b></button></a>
+                            <a href="{%url 'disable_user' i.id%}"  class="btn btn-xs btn-outline-primary mr-2">
+                                {% if i.activate_flag == '0'%}
+                                <b style="color:red">Disabled</b>
+                            {%else%}
+                                <b>Disable</b>
+                            {%endif%}
+
+                                </a>   
                     </td>
                 </tr>
                 {%endfor%}
 
             </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              {%if page.has_previous %}
+                    <li class="page-item"><a class="page-link" href="{% url 'user_details' %}?page={{page.previous_page_number}}">Previous</a></li>
+              {%endif%}
+                 {% for page_no in nums %}<br>
+                        <li class="page-item"><a class="page-link" href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+              {%endfor%}
+
+              {%if page.has_next %}
+                  <li class="page-item"><a class="page-link" href="{% url 'user_details' %}?page={{page.next_page_number}}">Next</a></li>
+              {%endif%}
+            </ul>
+        </nav>
     </div><!-- container -->
 </div><!-- content -->
 

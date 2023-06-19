@@ -9,6 +9,7 @@ import os
 from django.db.models import *
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.core.paginator import Paginator
 # Create your views here.
 def index(request):
     project_data=Project.objects.all()
@@ -56,32 +57,30 @@ def user_logout(request):
 # -----------------------sign up--------------------------------------------
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        # form=UserReg  istrationForm(request.POST)
-        print('---------')
-        if form.is_valid():
-            print('----111111-----')
-            username = form.cleaned_data['username']
-            firstname = form.cleaned_data['first_name']
-            lastname = form.cleaned_data['lastname']
-            email = form.cleaned_data['email']
-            password=form.cleaned_data['password1']
-            
-            user = User.objects.create_user(username,email=email,password=password)
-            user.first_name = firstname  # use the correct attribute here.
-            user.last_name = lastname  # use the correct attribute here.
-            user.save()
-            profile=Profile.objects.create(user=user)
-            profile.save()
-            msg = 'user created'
-            return redirect('user_login')
-        else:
-            print('Invalid Creds')
-            form = SignUpForm()
-            # form=UserRegistrationForm()
-            return render(request,'0signup.html',{'form': form})
+        username = request.POST['username']
+        firstname = request.POST['first_name']
+        lastname = request.POST['lastname']
+        email = request.POST['email']
+        password=request.POST['password1']
+        password2=request.POST['password2']   
+        if len(username)<4:
+            messages.error(request,'Username must be greater than 3 characters')
+            return redirect('signup')
+        if password !=password2:
+            messages.error(request,'Passwords do not match')
+            return redirect('signup')
+        if '@' not in email:
+            messages.error(request,'not a valid email')
+            return redirect('signup')
+
+        user = User.objects.create_user(username,email=email,password=password)
+        user.first_name = firstname  # use the correct attribute here.
+        user.last_name = lastname  # use the correct attribute here.
+        user.save()
+        profile=Profile.objects.create(user=user)
+        profile.save()
+        return redirect('user_login')
     else:
-        # form = SignUpForm()
         form=SignUpForm()
         return render(request,'signup.html',{'form': form})
 # ----------------------------------------------------------------------
@@ -109,10 +108,17 @@ def admin_about_us(request):
 def user_details(request):
     users=User.objects.all()
     user_list=User.objects.get(username=request.user)
+    page=Paginator(users,10)
+    page_list=request.GET.get('page')
+    page=page.get_page(page_list)
+    nums="a"*page.paginator.num_pages
+
     profile_info=Profile.objects.filter(user=request.user)
     if len(profile_info)==1:
         profile_info=Profile.objects.get(user=request.user)
-    return render(request,'user_details.html',{'users':users,'profile':profile_info,'data1':user_list})
+    all_profile_info=Profile.objects.all()
+    
+    return render(request,'user_details.html',{'users':users,'profile':profile_info,'data1':user_list,'page':page,'nums':nums,'all_profile_info':all_profile_info})
 # -----------------------------Projects--------------------------
 def project(request):
     data=Project.objects.all()
@@ -391,6 +397,30 @@ def edit_user_profile(request):
         p_form=ProfileForm(instance=request.user.profile)
         context={'u_form':u_form,'p_form':p_form}
         return render(request,'edit_user_profile.html',context)
+# -----------------------------------------------edit profile-------------------------------------
+def edit_user_profile_by_admin(request,id=None):
+    
+    if request.method=='POST':
+        userid=Profile.objects.filter(id=id).values('user')[0]['user']
+        username=User.objects.get(id=userid)
+        u_form=userUpdateForm(request.POST, instance=username)
+        p_form=ProfileForm(request.POST,request.FILES, instance=username.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect(user_details)
+        else:
+            print('invalid')
+    else:
+        print(id,'--------------------')
+        userid=Profile.objects.filter(id=id).values('user')[0]['user']
+        username=User.objects.get(id=userid)
+        u_form=userUpdateForm(instance=username)
+        p_form=ProfileForm(instance=username.profile)
+        context={'u_form':u_form,'p_form':p_form}
+        return render(request,'edit_user_profile.html',context)
+
+
 
 # ------------------------------remove user---------------------------------
 def delete_user(request,id):
@@ -569,3 +599,76 @@ def user_update_password(request):
         form = PasswordChangeForm(user=request.user)
     return render(request, 'user_update_password.html', {'form': form,'profile':profile_info,'data1':user_list})
 
+
+def dashboard(request):
+    profile_info=Profile.objects.filter(user=request.user)
+    if len(profile_info)==1:
+        profile_info=Profile.objects.get(user=request.user)
+    return render(request,'dashboard_investment.html',{'profile':profile_info})
+
+
+
+# -------------------------------------------dashboard incomesection-----------------------------------------------
+def dashboard_investment(request):
+# -----------------------------group by clause for My investment---------------------------
+    results = My_Investment.objects.values('project_name').order_by('project_name').annotate(Total_investment=Sum('amount_invested'))
+# ---------------------capture project name list-----------------------
+    project_names=results.values('project_name')
+    project_names_list=[]
+    total_investment_projectwise=[]
+    for i in results:
+        project_names_list.append(i['project_name'])
+        total_investment_projectwise.append(i['Total_investment'])
+    print(project_names_list,total_investment_projectwise)
+# -----------------------------group by clause for My Income---------------------------
+    income = My_income.objects.values('username').order_by('username').annotate(Total_amt_received=Sum('amount_received'))
+# ---------------------capture project name list-----------------------
+    user_names=income.values('username')
+    user_list=[]
+    total_income_userwise=[]
+    for i in income:
+        user_list.append(i['username'])
+        total_income_userwise.append(i['Total_amt_received'])
+    print(user_list,total_income_userwise)
+
+# ----------------profile pic-------------------------------------
+    profile_info=Profile.objects.filter(user=request.user)
+    if len(profile_info)==1:
+        profile_info=Profile.objects.get(user=request.user)
+    return render(request,'dashboard_investment.html',{'a':project_names_list,'b':total_investment_projectwise,'c':user_list,'d':total_income_userwise,'profile':profile_info})
+
+
+
+def dashboard_income(request):
+    
+# -----------------------------group by clause for My investment---------------------------
+    results = My_Investment.objects.values('project_name').order_by('project_name').annotate(Total_investment=Sum('amount_invested'))
+# ---------------------capture project name list-----------------------
+    project_names=results.values('project_name')
+    project_names_list=[]
+    total_investment_projectwise=[]
+    for i in results:
+        project_names_list.append(i['project_name'])
+        total_investment_projectwise.append(i['Total_investment'])
+    print(project_names_list,total_investment_projectwise)
+# -----------------------------group by clause for My Income---------------------------
+    income = My_income.objects.values('username').order_by('username').annotate(Total_amt_received=Sum('amount_received'))
+# ---------------------capture project name list-----------------------
+    user_names=income.values('username')
+    user_list=[]
+    total_income_userwise=[]
+    for i in income:
+        user_list.append(i['username'])
+        total_income_userwise.append(i['Total_amt_received'])
+    print(user_list,total_income_userwise)
+    # -------------------------profile pic-------------------------------------
+    profile_info=Profile.objects.filter(user=request.user)
+    if len(profile_info)==1:
+        profile_info=Profile.objects.get(user=request.user)    
+    return render(request,'dashboard_income.html',{'a':project_names_list,'b':total_investment_projectwise,'c':user_list,'d':total_income_userwise,'profile':profile_info})
+
+
+
+
+def demo(request):
+    return render(request,'demo.html')

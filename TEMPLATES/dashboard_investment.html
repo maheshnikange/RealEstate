@@ -1,0 +1,35 @@
+{% extends 'dashboard_base.html' %}
+{% block investment%}
+<div><canvas id="myChart"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+
+      labels: {{a|safe}},
+
+      datasets: [{
+        label: 'Investment',
+      //   data: [1, 19],
+        data: {{b|safe}},
+        
+      backgroundColor:['rgba(255,99,132,1)',],
+      borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>        
+</div>
+
+
+{%endblock%}
